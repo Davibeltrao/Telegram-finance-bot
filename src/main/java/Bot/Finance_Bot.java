@@ -5,8 +5,9 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class MyAmazingBot extends TelegramLongPollingBot{
+public class Finance_Bot extends TelegramLongPollingBot{
 	private SendMessage message;
+	private int msg_count = 0;
 	//@Override
 	public void onUpdateReceived(Update update) {
 		// TODO
@@ -15,14 +16,17 @@ public class MyAmazingBot extends TelegramLongPollingBot{
 				System.out.println("Reset!");
 				message = new SendMessage()
 						.setChatId(update.getMessage().getChatId())
-						.setText("Porque você quer me resetar?");
+						.setText("Você é linda");
 				
 			}
 			else {
-				System.out.println("Not reset");
-		        message = new SendMessage() // Create a SendMessage object with mandatory fields
-		                .setChatId(update.getMessage().getChatId())
-		                .setText(update.getMessage().getText());        
+				if(msg_count == 0) {
+					System.out.println("Not reset");
+					System.out.println(update.getMessage().getText());
+			        message = new SendMessage() // Create a SendMessage object with mandatory fields
+			                .setChatId(update.getMessage().getChatId())
+			                .setText("Estou em manutenção. Aguarde uma próxima versão, obrigado");
+				}
 			}
 			sendMessage(message);
 	    }
